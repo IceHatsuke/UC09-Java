@@ -2,16 +2,40 @@ package Aula8;
 
 public class AnaliseMeteorologia {
 
-    public static void calcularMediaPonderadaTemperatura(double max, double min){
-        //Utiliza array
+    static String [] cidades = {"São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador"};
+
+    static double [][] temperatura = 
+    {
+        {20.5, 25.1},
+        {28.3, 18.7},
+        {31.8, 21.9},
+        {30.2, 20.5},
+        {20.7, 11.3}
+    };
+
+    static int [][] umidade = 
+    {
+        {85, 60, 75},
+        {78, 55, 70},
+        {90, 65, 80},
+        {72, 58, 70},
+        {80, 50, 68}
+    };
+
+    public static double calcularMediaPonderadaTemperatura(double max, double min){
+        if(max < -50 || max > 60 || min < -50 || min > 60)
+        {
+            return 0;
+        }
+        return (max * 0.7) + (min * 0.3);
     }
 
     public static void classificarClima(double tempMedia, int umidadeMedia){
-        if(tempMedia >= 30 || umidadeMedia >= 75)
+        if(tempMedia >= 30 && umidadeMedia >= 75)
         {
             System.out.println("MUITO QUENTE E ÚMIDO");
         }
-        else if(tempMedia >= 20 && tempMedia == 25 || umidadeMedia >= 50 && umidadeMedia == 70)
+        else if(tempMedia >= 20 && tempMedia <= 25 && umidadeMedia >= 50 && umidadeMedia <= 70)
         {
             System.out.println("CONFORTAVEL");
         }
@@ -22,24 +46,69 @@ public class AnaliseMeteorologia {
 
     }
 
-    public static void identificarCidadeComMaiorAmplitudeTermica(){
+    public static int identificarCidadeComMaiorAmplitudeTermica(){
+        int indice = 0;
+        double maiorAmplitude = 0;
 
+        for(int i = 0; i < temperatura.length; i++){
+            double amplitude = temperatura[i][0] - temperatura[i][1];
+            if(amplitude > maiorAmplitude)
+            {
+                maiorAmplitude = amplitude;
+                indice = i;
+            }
+        }
+        return indice;
     }
 
-    public static void calcularIndiceCalor(double temp, int umidade){
-
+    public static double calcularIndiceCalor(double temp, int umidade){
+        double indice = temp + 0.5 * (umidade / 100.0) * (temp - 20);
+        return Math.round(indice * 10.0) / 10.0;
     }
 
-    public static void gerarAlertas(int cidadeIndex){
+    public static int gerarAlertas(int cidadeIndex){
+        double max = temperatura[cidadeIndex][0];
+        double min = temperatura[cidadeIndex][1];
+        int umidadeMedia = calcularMediaUmidade(cidadeIndex);
+        double variacao = max - min;
 
+        if(max > 35 || umidadeMedia > 90)
+        {
+            return 2;
+        }
+        else if((max >= 30 && max <= 35 && umidadeMedia > 80 ) || variacao > 15)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public static void calcularEstatisticasAvancadas(){
 
     }
 
-    public static void compararCidades(int cidade1, int cidade2){
+    public static String compararCidades(int cidade1, int cidade2){
+        double media1 = calcularMediaPonderadaTemperatura(temperatura[cidade1][0], temperatura[cidade1][1]);
+        double media2 = calcularMediaPonderadaTemperatura(temperatura[cidade2][0], temperatura[cidade2][1]);
 
+        int umidade1 = calcularMediaUmidade(cidade1);
+        int umidade2 = calcularMediaUmidade(cidade2);
+
+        if(media1 > media2)
+        {
+            return cidades[cidade1] + "É mais quente";
+        }
+        else if(media2 > media1)
+        {
+            return cidades[cidade2] + "É mais quente";
+        }
+        else
+        {
+            return "Temperaturas Iguais";
+        }
     }
 
     public static void gerarRelatorioDetalhado(){
@@ -47,6 +116,17 @@ public class AnaliseMeteorologia {
         System.out.printf("\tSISTEMA DE ANÁLISE METEOROLÓGICA INTELIGENTE\t\n");
         System.out.printf("============================================================\n");
         System.out.printf("\n\t\tANÁLISE DETALHADA POR CIDADE: \n");
+        System.out.printf("\t---------------------------------------------");
+
+
+    }
+
+    public static int calcularMediaUmidade(int cidadeIndex){
+        int soma = 0;
+        for (int i = 0; i < 3; i++) {
+            soma += umidade[cidadeIndex][i];
+        }
+        return soma / 3;
     }
 
     public static void main(String[] args) {
