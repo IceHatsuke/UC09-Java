@@ -116,7 +116,9 @@ public class AnaliseMeteorologia {
         System.out.printf("\tSISTEMA DE ANÁLISE METEOROLÓGICA INTELIGENTE\t\n");
         System.out.printf("============================================================\n");
         System.out.printf("\n\t\tANÁLISE DETALHADA POR CIDADE: \n");
-        System.out.printf("\t---------------------------------------------");
+        System.out.printf("\t---------------------------------------------\n");
+        System.out.printf("CIDADE | T.MAX | T.MED | UMID% | CLASSIFICAÇÃO | ALERTA\n");
+        System.out.printf("\t---------------------------------------------\n");
 
 
     }
