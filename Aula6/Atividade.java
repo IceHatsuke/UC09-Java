@@ -1,9 +1,7 @@
 package Aula6;
 
-import java.nio.channels.Pipe.SourceChannel;
 import java.util.Scanner;
 
-import Aula1.dobro;
 
 public class Atividade {
     public static class MaratonaFilmes {
@@ -32,7 +30,6 @@ public class Atividade {
             else if(horasTotais > 4 && horasTotais <= 8)
             {
                 banana = "Maratona Moderada";
-                System.out.println("Entrei no if banana");
             }
             else if(horasTotais > 8)
             {
