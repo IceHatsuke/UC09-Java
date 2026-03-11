@@ -170,8 +170,8 @@ public class AnaliseMeteorologia {
     // Método para comparar temperaturas entre duas cidades
     public static String compararCidades(int cidade1, int cidade2){
 
-        double media1 = calcularMediaPonderadaTemperatura(temperatura[cidade1][0], temperatura[cidade1][1]); //calcula a média da temperatura da cidade1
-        double media2 = calcularMediaPonderadaTemperatura(temperatura[cidade2][0], temperatura[cidade2][1]); //calcula a média da temperatura da cidade1
+        double media1 = calcularMediaPonderadaTemperatura(temperatura[cidade1][0], temperatura[cidade1][1]); //Pegam a temperatura máxima e mínima de duas cidades, Chamam um método que calcula a média e Guardam o resultado nas variáveis
+        double media2 = calcularMediaPonderadaTemperatura(temperatura[cidade2][0], temperatura[cidade2][1]); 
 
         int umidade1 = calcularMediaUmidade(cidade1); // Umidade média da cidade 1
         int umidade2 = calcularMediaUmidade(cidade2); // Umidade média da cidade 2
